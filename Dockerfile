@@ -32,15 +32,13 @@ RUN apt-get -y update && apt-get -y install curl wget git unzip bash zip
 WORKDIR /opt
 
 # Downloading adoptopenjdk binary 
-RUN wget https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/download/jdk8u272-b10/OpenJDK8U-jdk_x64_linux_hotspot_8u272b10.tar.gz
-RUN tar xzf OpenJDK8U-jdk_x64_linux_hotspot_8u272b10.tar.gz 
+RUN wget https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.16.1%2B1/OpenJDK11U-jdk_x64_linux_hotspot_11.0.16.1_1.tar.gz && \
+tar xzf OpenJDK11U-jdk_x64_linux_hotspot_11.0.16.1_1.tar.gz && \
+rm -f OpenJDK11U-jdk_x64_linux_hotspot_11.0.16.1_1.tar.gz
 
 # Set Environment variables
-ENV PATH=/opt/jdk8u272-b10/bin:${PATH}
-ENV JAVA_HOME /opt/jdk8u272-b10
-
-#cleanup 
-RUN rm -f OpenJDK8U-jdk_x64_linux_hotspot_8u272b10.tar.gz
+ENV PATH=/opt/jdk-11.0.16.1+1/bin:${PATH}
+ENV JAVA_HOME /opt/jdk-11.0.16.1+1
 
 # smoke test
 RUN java -version
